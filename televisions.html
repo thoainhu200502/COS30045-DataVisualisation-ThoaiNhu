@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Televisions Data - Appliance Energy</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
     <nav>
@@ -17,24 +18,71 @@
     </nav>
 
     <main>
-        <h1>TV Insights</h1>
-        <p>Based on the Australian market data, here is an analysis of how TV brands, sizes, and screen technologies impact your energy choices.</p>
+        <h1 class="text-center">Television Market Data Visualisation</h1>
+        <p class="subtitle">Comprehensive analysis of brand availability, market distribution, and model counts across the Australian television sector.</p>
 
-        <section class="story-section">
-            <h2>Top TV Brands</h2>
-            <p>Our analysis shows that certain brands dominate the Australian market in terms of available models. This gives consumers a wide variety of choices, but also requires careful consideration of energy ratings.</p>
-            <img src="assets/img/chart1.png" alt="Brand Distribution" class="chart-img">
-        </section>
+        <div class="grid-2">
+            <div class="about-card">
+                <h2>📊 Market Share by Brand</h2>
+                <p>After cleaning and standardizing brand registrations from the raw dataset, this interactive chart illustrates the market share of leading manufacturers. Hover over each slice to inspect the exact number of registered models and percentage share.</p>
+                <div id="d3-pie-chart" style="text-align: center;"></div>
+                <div id="pie-legend" class="legend-grid"></div>
+            </div>
+            
+            <div class="about-card">
+                <h2>📈 Complete Brand Ranking (29 Brands)</h2>
+                <p>This bar chart ranks all 29 filtered television brands by their total number of registered models (`Brand_Reg` vs `Count(SoldIn)`). Hover over any bar to view exact figures from market leaders down to niche suppliers.</p>
+                <div id="d3-bar-chart"></div>
+                <p style="font-size: 13px; color: #555; margin-top: 10px;">The distribution follows a classic long-tail pattern: the top 7 brands account for over 70% of all available models, while 15 smaller brands offer between 1 and 5 models each.</p>
+            </div>
+        </div>
 
-        <section class="story-section">
-            <h2>Size vs. Energy</h2>
-            <p>As expected, larger screens consume significantly more power. If you are looking to save on electricity, choosing a small or medium TV over a large one makes a huge difference.</p>
-            <img src="assets/img/chart2.png" alt="Energy by Size" class="chart-img">
-        </section>
+        <br>
+        <div class="grid-2">
+            <div class="about-card">
+                <h2>📋 Top 10 Manufacturers Summary</h2>
+                <p>Detailed breakdown of the top 10 television brands following data cleaning and deduplication:</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Brand Name</th>
+                            <th>Model Count</th>
+                            <th>Market Tier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>#1</td><td><strong>EKO</strong></td><td>55</td><td>Market Leader</td></tr>
+                        <tr><td>#2</td><td><strong>JVC</strong></td><td>46</td><td>Major Contender</td></tr>
+                        <tr><td>#3</td><td><strong>AIWA</strong></td><td>45</td><td>Major Contender</td></tr>
+                        <tr><td>#4</td><td><strong>BAUHN</strong></td><td>31</td><td>Mid-Tier Volume</td></tr>
+                        <tr><td>#5</td><td><strong>BLAUPUNKT</strong></td><td>30</td><td>Mid-Tier Volume</td></tr>
+                        <tr><td>#6</td><td><strong>TOSHIBA</strong></td><td>27</td><td>Mid-Tier Volume</td></tr>
+                        <tr><td>#7</td><td><strong>LOEWE</strong></td><td>22</td><td>Mid-Tier Volume</td></tr>
+                        <tr><td>#8</td><td><strong>HISENSE</strong></td><td>14</td><td>Established Brand</td></tr>
+                        <tr><td>#9</td><td><strong>Linsar</strong></td><td>14</td><td>Established Brand</td></tr>
+                        <tr><td>#10</td><td><strong>ENGLAON</strong></td><td>13</td><td>Specialized Brand</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="about-card highlight-card">
+                <h2>💡 Key Analytical Insights</h2>
+                <p>From our data exploration and aggregation workflows, several important market trends emerge for Australian consumers:</p>
+                <ul>
+                    <li><strong>Dominance of Value-Oriented Brands:</strong> Within this specific filtered segment of the database, value and retail-exclusive brands such as <strong>EKO</strong> (55 models), <strong>JVC</strong> (46 models), and <strong>AIWA</strong> (45 models) register the highest diversity of model variations.</li>
+                    <li><strong>Strong Mid-Market Competition:</strong> Brands like <strong>BAUHN</strong> (31), <strong>BLAUPUNKT</strong> (30), <strong>TOSHIBA</strong> (27), and <strong>LOEWE</strong> (22) form a competitive second tier, giving buyers substantial options across small and medium screen sizes.</li>
+                    <li><strong>Importance of Data Hygiene:</strong> In the raw government dataset, inconsistent text casing (e.g., uppercase vs. title case) fragmented brand counts. Applying string cleaning and replacement rules was essential to uncover the true market standing of each manufacturer.</li>
+                    <li><strong>Consumer Recommendation:</strong> High model availability from a single brand does not automatically imply superior energy performance. Buyers should cross-reference individual model power ratings using our Home page calculator before purchasing.</li>
+                </ul>
+            </div>
+        </div>
     </main>
 
     <footer>
         <p>© 2026 Thoại Như | Created with the assistance of Generative AI.</p>
     </footer>
+
+    <script src="assets/js/script.js"></script>
 </body>
 </html>

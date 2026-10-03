@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Appliance Energy</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
     <nav>
@@ -17,42 +18,100 @@
     </nav>
 
     <main>
-        <h1>Appliance Energy</h1>
-        <p>Discover how much energy your household appliances consume and make smart, cost-effective decisions for the Australian market.</p>
+        <h1 class="text-center">Australian Appliance Energy Portal</h1>
+        <p class="subtitle">Empowering Australian households with data-driven insights for smarter, greener, and cost-effective energy consumption.</p>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span class="stat-number">365+</span>
+                <span class="stat-label">TV Models Analyzed</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">28 ¢/kWh</span>
+                <span class="stat-label">Avg. Australian Tariff</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">Up to 45%</span>
+                <span class="stat-label">Potential Bill Savings</span>
+            </div>
+        </div>
         
-        <h2>Energy Calculator</h2>
-        <div class="calculator">
-            <div class="input-group">
-                <label>Appliance Power (Watts):</label>
-                <input type="number" id="wattage" placeholder="e.g. 150">
+        <div class="grid-2">
+            <div class="about-card">
+                <h2>⚡ Household Energy Calculator</h2>
+                <p>Estimate the ongoing electricity cost of any household appliance before you buy. Input the power rating (Watts), your daily usage habits, and your local electricity rate below.</p>
+                <div class="input-group">
+                    <label>Appliance Power Rating (Watts):</label>
+                    <input type="number" id="wattage" placeholder="e.g. 150">
+                </div>
+                <div class="input-group">
+                    <label>Active Hours Used Per Day:</label>
+                    <input type="number" id="hours" placeholder="e.g. 5">
+                </div>
+                <div class="input-group">
+                    <label>Electricity Tariff (cents/kWh):</label>
+                    <input type="number" id="price" placeholder="e.g. 28">
+                </div>
+                <button id="calc-btn">Calculate Running Cost</button>
+                <div id="calc-error" style="color: #ff007f; font-weight: bold; margin-top: 12px; display: none;">Please enter valid positive numbers in all fields!</div>
+                
+                <div id="calc-results" class="results-panel" style="display: none;">
+                    <h3>Estimated Consumption & Cost</h3>
+                    <p>Daily Energy Usage: <span id="res-daily"></span> kWh</p>
+                    <p>Monthly Energy Usage: <span id="res-monthly"></span> kWh</p>
+                    <p>Estimated Monthly Bill Impact: $<span id="res-cost"></span></p>
+                    <p>Projected Annual Cost: $<span id="res-yearly"></span></p>
+                </div>
             </div>
-            <div class="input-group">
-                <label>Hours used per day:</label>
-                <input type="number" id="hours" placeholder="e.g. 4">
-            </div>
-            <div class="input-group">
-                <label>Electricity Price (cents/kWh):</label>
-                <input type="number" id="price" placeholder="e.g. 28">
-            </div>
-            <button id="calc-btn">Calculate</button>
-            <div id="calc-error" style="color: red; margin-top: 10px; display: none;">Please enter valid numbers!</div>
-            
-            <div id="calc-results" class="results-panel" style="display: none;">
-                <h3>Results</h3>
-                <p>Daily Consumption: <span id="res-daily"></span> kWh</p>
-                <p>Monthly Consumption: <span id="res-monthly"></span> kWh</p>
-                <p>Estimated Monthly Cost: $<span id="res-cost"></span></p>
+
+            <div class="about-card">
+                <h2>🏠 Average Household Breakdown</h2>
+                <p>How do televisions compare against other major household appliances in a typical Australian home? Hover over the bars below to explore the average annual power draw (kWh/year) by appliance category.</p>
+                <div id="home-appliance-chart"></div>
+                <p style="font-size: 13.5px; color: #555; margin-top: 15px;">While heating, cooling, and refrigeration consume the largest baseline power, home entertainment systems represent a major controllable expense—especially in multi-TV households or homes upgrading to ultra-large displays.</p>
             </div>
         </div>
 
-        <h2>FAQ</h2>
-        <button class="accordion">Why care about TV energy?</button>
-        <div class="panel">
-            <p>Larger screens and specific screen technologies can significantly increase your electricity bill over time.</p>
+        <br>
+        <div class="about-card highlight-card">
+            <h2>🌏 Understanding the Australian Energy Rating Label</h2>
+            <p>Under the <strong>Greenhouse and Energy Minimum Standards (GEMS) Act</strong>, most electrical appliances sold in Australia must display an official Energy Rating Label. This system allows consumers to compare the energy efficiency and running costs of competing models on a fair, standardized basis:</p>
+            <ul>
+                <li><strong>Star Rating Index:</strong> Ranges from 1 to 10 stars. Each additional star represents a significant percentage reduction in electricity usage compared to a standard benchmark model of the same size.</li>
+                <li><strong>Annual kWh Estimate:</strong> The label displays an estimated annual energy consumption figure (kWh per year) based on standardized laboratory testing and typical Australian household usage patterns.</li>
+                <li><strong>Standby Power Waste:</strong> Modern appliances constantly draw "vampire power" while waiting for remote control signals or network updates. Selecting high-efficiency models minimizes this passive drain.</li>
+            </ul>
         </div>
-        <button class="accordion">Where is the data from?</button>
-        <div class="panel">
-            <p>The data is sourced directly from the Australian Government's official database.</p>
+
+        <br>
+        <div class="about-card">
+            <h2>❓ Frequently Asked Questions (Knowledge Base)</h2>
+            <p>Explore key questions regarding appliance energy efficiency, electricity tariffs, and sustainable purchasing strategies in Australia.</p>
+            
+            <button class="accordion">1. Why should I care about television energy ratings?</button>
+            <div class="panel">
+                <p>Televisions are among the most frequently used appliances in Australian living rooms, averaging 4 to 6 hours of active screen time per day. Over a typical 7-to-10-year lifespan, an inefficient large-screen television can cost hundreds of dollars more in electricity than a 5-star rated equivalent.</p>
+            </div>
+            
+            <button class="accordion">2. Where is the data on this website sourced from?</button>
+            <div class="panel">
+                <p>All visualizations and market statistics presented on this platform are derived directly from the official Australian Government Appliance Energy Rating database, cleaned and aggregated using systematic data analytics workflows.</p>
+            </div>
+
+            <button class="accordion">3. Does screen technology (OLED vs. LED/LCD) affect power usage?</button>
+            <div class="panel">
+                <p>Yes. Standard LED/LCD panels use a continuous backlight, whereas OLED panels illuminate individual pixels. However, high-brightness Mini-LED and QLED displays often consume substantially more power when displaying High Dynamic Range (HDR) content at maximum brightness.</p>
+            </div>
+
+            <button class="accordion">4. How accurate is the Energy Calculator on this page?</button>
+            <div class="panel">
+                <p>The calculator uses the standard physics formula: Kilowatt-hours (kWh) = (Watts × Hours) ÷ 1000. While actual consumption may fluctuate slightly based on screen brightness settings and volume levels, it provides a highly reliable baseline for budgeting.</p>
+            </div>
+
+            <button class="accordion">5. What are the easiest ways to reduce my entertainment electricity bill?</button>
+            <div class="panel">
+                <p>Enable the built-in "Eco Mode" or ambient light sensor on your TV, lower the backlight setting by 15–20% (which barely affects perceived image quality), and switch off power boards completely at the wall to eliminate standby power draw.</p>
+            </div>
         </div>
     </main>
 
