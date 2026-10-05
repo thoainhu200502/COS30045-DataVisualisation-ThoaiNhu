@@ -1,4 +1,5 @@
 # COS30045-DataVisualisation-ThoaiNhu
+Live Demo :https://thoainhu200502.github.io/COS30045-DataVisualisation-ThoaiNhu/
 # Appliance Energy
 
 ## Data Story
